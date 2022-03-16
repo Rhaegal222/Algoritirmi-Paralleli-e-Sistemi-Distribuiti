@@ -11,5 +11,6 @@ void* hello(void* arg){
 int main() {
     pthread_t tid;
     pthread_create(&tid, NULL, &hello, NULL);
+    pthread_join(tid, NULL)
 
 }
