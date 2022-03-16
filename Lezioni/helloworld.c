@@ -4,8 +4,8 @@
 #include <pthread.h>
 
 void* hello(void* arg){
-    printf("Ciao\n"),
-    return NULL,
+    printf("Ciao\n");
+    return NULL;
 }
 
 int main() {
