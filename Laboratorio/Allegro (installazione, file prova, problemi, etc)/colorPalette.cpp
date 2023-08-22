@@ -22,3 +22,6 @@ int main(){
   return 0;//Return 0 to indicate a successful run.
 }//end main function
 END_OF_MAIN()
+
+// mpic++ ./colorPalette.cpp -lalleg
+// mpirun ./a.out -np 2
