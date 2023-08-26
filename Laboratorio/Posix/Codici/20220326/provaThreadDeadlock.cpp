@@ -7,6 +7,13 @@
 
 int n = 1000000;
 
+/*
+In linguaggio C, la libreria pthread fornisce supporto per la gestione dei thread multipli e della sincronizzazione. 
+pthread_mutex_t è un tipo di dato definito dalla libreria pthread che rappresenta una variabile di tipo mutex (mutual exclusion), 
+che è utilizzata per sincronizzare l'accesso concorrente a risorse condivise tra thread diversi, 
+al fine di prevenire race condition e garantire la coerenza dei dati.
+*/
+
 pthread_mutex_t mutex0;
 pthread_mutex_t mutex1;
 
