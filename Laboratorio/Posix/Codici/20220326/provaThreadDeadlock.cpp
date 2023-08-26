@@ -82,5 +82,4 @@ int main(int argc, char* argv[]) {
     return 0;  // Termina il programma con successo
 }
 
-// g++ -o provaThreadDeadlock provaThreadDeadlock.cpp -lpthread
-// ./provaThreadDeadlock
+// g++ -o provaThreadDeadlock provaThreadDeadlock.cpp -lpthread && ./provaThreadDeadlock && rm provaThreadDeadlock
