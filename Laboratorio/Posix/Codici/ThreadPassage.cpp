@@ -35,5 +35,3 @@ int main(int arg, char* argv[]) {
         
     return 0;
 }
-
-// g++ -o provaThreadPassage provaThreadPassage.cpp -lpthread && ./provaThreadPassage && rm provaThreadPassage

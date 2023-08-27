@@ -62,5 +62,3 @@ int main(int argc, char* argv[]) {
     
     return 0;
 }
-
-// g++ -o provaThreadBarrier provaThreadBarrier.cpp -lpthread && ./provaThreadBarrier && rm provaThreadBarrier

@@ -52,5 +52,3 @@ int main(int arg, char* argv[]) {
 
     return 0; // Termina il programma con successo
 }
-
-// g++ -o provaThreadRace provaThreadRace.cpp -lpthread && ./provaThreadRace && rm provaThreadRace

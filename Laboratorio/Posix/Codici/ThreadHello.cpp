@@ -24,5 +24,3 @@ int main(int argc, char* argv[]) {
 
     return 0;   // Termina il programma con successo
 }
-
-// g++ -o provaThreadHello provaThreadHello.cpp -lpthread && ./provaThreadHello && rm provaThreadHello

@@ -37,22 +37,28 @@ void destroyBarrier(){
     pthread_cond_destroy(&cond); // Invia un segnale a tutti i thread in attesa
 }
 
+// Funzione eseguita da ogni thread
 void* threadFunc(void* arg){     
     printf("inizio\n");     
-    barrier();     
+    barrier(); // Punto di sincronizzazione
     printf("fine\n");     
     return NULL; 
 }   
 
 int main(int argc, char* argv[]){     
-    pthread_t th[nThread];     
-    initBarrier();     
+    pthread_t th[nThread]; // Array di thread
+    initBarrier(); // Inizializza la barriera
+
+    // Crea i thread
     for (int i = 0; i < nThread; i++){
         pthread_create(&th[i], NULL, &threadFunc, NULL);      
-    }      
+    }
+
+    // Attendi che tutti i thread terminino
     for (int i = 0; i < nThread; i++) {         
         pthread_join(th[i], NULL);     
-    }     
-    destroyBarrier();     
+    }
+
+    destroyBarrier(); // Distruggi la barriera
     return 0; 
 }

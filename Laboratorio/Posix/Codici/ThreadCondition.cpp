@@ -66,6 +66,3 @@ int main(int argc, char* argv[]) {
 
     return 0; // Termina il programma con successo
 }
-
-
-// g++ -o provaThreadCondition provaThreadCondition.cpp -lpthread && ./provaThreadCondition && rm provaThreadCondition

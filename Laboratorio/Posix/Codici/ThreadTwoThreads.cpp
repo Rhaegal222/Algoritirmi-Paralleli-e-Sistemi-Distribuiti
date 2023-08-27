@@ -34,5 +34,3 @@ int main(int arg, char* argv[]) {
 
     return 0; // Termina il programma con successo
 }
-
-// g++ -o provaThreadTwoThreads provaThreadTwoThreads.cpp -lpthread && ./provaThreadTwoThreads && rm provaThreadTwoThreads
