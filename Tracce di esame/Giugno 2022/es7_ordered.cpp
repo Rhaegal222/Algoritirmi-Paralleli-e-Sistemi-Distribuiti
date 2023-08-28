@@ -36,11 +36,23 @@ int main(int argc, char *argv[]) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);  // Ottieni il numero totale di processi
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);  // Ottieni il rank (ID) del processo
     
-    printf("Process %d: Before Barrier\n", rank);  // Stampa prima della barriera personalizzata
+    // Ciclo per la stampa "Before Barrier"
+    for (int i = 0; i < size; i++) {
+        if (rank == i) {
+            printf("Process %d: Before Barrier\n", rank);
+            fflush(stdout);  // Assicura la stampa immediata
+        }
+        barrier(rank, size);  // Chiamata alla barriera personalizzata
+    }
     
-    barrier(rank, size);  // Chiamata alla barriera personalizzata
-    
-    printf("Process %d: After Barrier\n", rank);  // Stampa dopo la barriera personalizzata
+    // Ciclo per la stampa "After Barrier"
+    for (int i = 0; i < size; i++) {
+        barrier(rank, size);  // Chiamata alla barriera personalizzata
+        if (rank == i) {
+            printf("Process %d: After Barrier\n", rank);
+            fflush(stdout);  // Assicura la stampa immediata
+        }
+    }
     
     MPI_Finalize();  // Finalizza MPI
     return 0;
