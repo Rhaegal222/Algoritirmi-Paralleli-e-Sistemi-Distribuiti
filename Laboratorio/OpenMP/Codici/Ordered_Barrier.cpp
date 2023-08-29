@@ -12,7 +12,6 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < size; i++) {
         if (rank == i) {
             printf("Process %d: Before Barrier\n", rank);
-            fflush(stdout);
         }
         MPI_Barrier(MPI_COMM_WORLD);  // Barriera: tutti i processi attendono qui
     }
@@ -21,7 +20,6 @@ int main(int argc, char *argv[]) {
         MPI_Barrier(MPI_COMM_WORLD);  // Barriera: tutti i processi attendono qui
         if (rank == i) {
             printf("Process %d: After Barrier\n", rank);
-            fflush(stdout);
         }
     }
     
