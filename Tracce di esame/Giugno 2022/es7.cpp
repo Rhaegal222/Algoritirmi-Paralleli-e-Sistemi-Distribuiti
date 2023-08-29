@@ -1,47 +1,38 @@
 #include <mpi.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
-#define maxsize 3000  // Dimensione massima del buffer
-
-MPI_Request req;      // Richiesta per l'invio o la ricezione asincrona
-MPI_Status status;    // Stato dell'operazione MPI
-int cont, buffer[maxsize];  // Variabile contatore e buffer per l'invio/ricezione dei dati
-
-// Funzione per la barriera personalizzata
 void barrier(int rank, int size) {
-    cont++;
-    
-    // Invia token a tutti gli altri processi
-    for (int dest = 0; dest < size; dest++) {
-        if (dest != rank) {
-            MPI_Isend(&buffer[0], size, MPI_INT, dest, cont, MPI_COMM_WORLD, &req);  // Invia dati asincronamente
-            MPI_Wait(&req, &status);  // Attendi completamento dell'invio
+    int dummy = 0;
+
+    if(rank == 0){
+        // Process 0 send the dummy message to other processes
+        for (int dest = 1; dest < size; dest++){
+            MPI_Send(&dummy, 1, MPI_INT, dest, 0, MPI_COMM_WORLD);
+        }
+        // Process 0 receive back the dummy message from other processes
+        for (int src = 1; src < size; src++){
+            MPI_Recv(&dummy, 1, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         }
     }
-
-    // Ricevi token da tutti gli altri processi
-    for (int src = 0; src < size; src++) {
-        if (src != rank) {
-            MPI_Irecv(&buffer[0], size, MPI_INT, src, cont, MPI_COMM_WORLD, &req);  // Ricevi dati asincronamente
-            MPI_Wait(&req, &status);  // Attendi completamento della ricezione
-        }
+    else{
+        // Other Process receive the dummy message from Process 0
+        MPI_Recv(&dummy, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        // Other Process send back the dummy message to other process
+        MPI_Send(&dummy, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
     }
 }
 
 int main(int argc, char *argv[]) {
     int rank, size;
+
     MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);  // Ottieni il numero totale di processi
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);  // Ottieni il rank (ID) del processo
-    
-    printf("Process %d: Before Barrier\n", rank);  // Stampa prima della barriera personalizzata
-    
-    barrier(rank, size);  // Chiamata alla barriera personalizzata
-    
-    printf("Process %d: After Barrier\n", rank);  // Stampa dopo la barriera personalizzata
-    
-    MPI_Finalize();  // Finalizza MPI
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    printf("Process %d: Before Barrier\n", rank);
+    barrier(rank, size);
+    printf("Process %d: After Barrier\n", rank);
+
+    MPI_Finalize();
     return 0;
 }
