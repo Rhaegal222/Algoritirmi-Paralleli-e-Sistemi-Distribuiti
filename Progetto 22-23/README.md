@@ -1,0 +1,9 @@
+- Leggere la matrice e salvarla
+- Leggere il file di configurazione
+- Processo 0 legge il file di configurazione e assegna la porzione di matrice al procio
+  - gestire il parizionamento
+- La cosa brutta sono i Thread hai vasta scelta chiedere a Spataro come gestire i Thread
+  - Piú processi
+  - Ogni processo ha diversi thread
+- I Thread comunicano tra solo tipo send/recive
+- Gli esempi li trovi i Game Of Life di Spataro
