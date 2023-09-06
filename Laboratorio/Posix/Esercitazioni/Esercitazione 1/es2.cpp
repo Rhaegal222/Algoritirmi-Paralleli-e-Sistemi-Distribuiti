@@ -28,10 +28,5 @@ int main(int argc, char* argv[]) {
 
     pthread_join(thid, NULL); // Aspetta che il thread secondario termini prima di continuare
 
-    auto end_time = std::chrono::high_resolution_clock::now(); // Ottieni il tempo di fine
-    auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time); // Calcola la durata totale in secondi
-
-    std::cout << "Tempo di esecuzione totale: " << duration.count() << " secondi" << std::endl; // Stampa il tempo totale di esecuzione
-
     return 0;
 }
