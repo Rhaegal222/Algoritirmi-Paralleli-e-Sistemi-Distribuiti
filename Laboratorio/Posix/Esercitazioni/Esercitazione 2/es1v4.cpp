@@ -9,6 +9,7 @@ pthread_mutex_t mutex;
 
 int array[N];
 int R = 0;
+int count = 0;
 
 // Funzione che calcola la somma degli elementi in un intervallo specifico
 void* sum_array(void* arg) {
@@ -18,26 +19,20 @@ void* sum_array(void* arg) {
     // Estrai l'ID del thread dalla variabile argomento
     int thread_id = *((int*)arg);
 
-    // Calcola l'indice di inizio dell'intervallo per il thread corrente
-    int elements_per_thread = N / T;
-    int start_index = thread_id * elements_per_thread;
-
-    // Calcola l'indice di fine dell'intervallo per il thread corrente
-    int end_index = (thread_id == (T - 1)) ? N : (thread_id + 1) * elements_per_thread;
-
     // Inizializza la somma parziale per il thread corrente
     int partial_sum = 0;
-
-    // Effettua la somma degli elementi nell'intervallo assegnato al thread
-    for (int i = start_index; i < end_index; i++) {
-        partial_sum += array[i];
-    }
 
     // Blocca il mutex prima di aggiornare la variabile condivisa R
     pthread_mutex_lock(&mutex);
 
+    // Effettua la somma degli elementi assegnato al thread
+    partial_sum = array[count]+array[N-1-count];
+
     // Aggiorna la variabile condivisa R con la somma parziale
     R += partial_sum;
+
+    // Aggiorna la variabile condivisa R con la somma parziale
+    count += 1;
 
     // Rilascia il mutex
     pthread_mutex_unlock(&mutex);
