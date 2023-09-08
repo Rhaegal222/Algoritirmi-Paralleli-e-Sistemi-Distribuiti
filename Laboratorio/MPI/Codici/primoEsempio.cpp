@@ -3,5 +3,7 @@
 int main(int argc, char** argv)
 {
     int myid=atoi(argv[1]);
-    printf("Sono  %d\n",myid); 
+    printf("Sono  %d\n",myid);
+
+    return 0;
 }

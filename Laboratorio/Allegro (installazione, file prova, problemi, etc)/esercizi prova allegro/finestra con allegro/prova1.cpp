@@ -6,7 +6,7 @@
 #include "stdio.h"
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 #define A_Display  400

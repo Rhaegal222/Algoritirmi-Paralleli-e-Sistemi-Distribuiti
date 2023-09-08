@@ -1,27 +1,56 @@
-#include <allegro.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include <iostream>
-#include <stdlib.h>
+
 using namespace std;
 
-// file prova per verificare corretta installazione di Allegro
+int main() {
+    // Inizializzazione di Allegro
+    if (!al_init()) {
+        cerr << "Errore durante l'inizializzazione di Allegro." << endl;
+        return 1;
+    }
 
-int main(){
-  allegro_init(); //Allegro initialization
-  install_keyboard();//Set up for keyboard input
-  set_color_depth(24);
-  BITMAP *bitmap= create_bitmap(256, 256);
-  set_gfx_mode(GFX_AUTODETECT_WINDOWED,256,256,0,0);
-  for(int row = 0;row < 255;row++){
-      for(int column = 0;column < 255;column++){
-        putpixel(bitmap,column,row,makecol( row,column, 128 ) );
-      }//end loop row
-  }//end loop on column
-  blit(bitmap, screen, 0, 0, 0, 0, 256, 256);
-  readkey();
+    // Inizializzazione dell'input da tastiera
+    if (!al_install_keyboard()) {
+        cerr << "Errore durante l'installazione della tastiera." << endl;
+        return 1;
+    }
 
-  return 0;//Return 0 to indicate a successful run.
-}//end main function
-END_OF_MAIN()
+    // Creazione di un display di 256x256 pixel
+    ALLEGRO_DISPLAY *display = al_create_display(256, 256);
+    if (!display) {
+        cerr << "Errore durante la creazione del display." << endl;
+        return 1;
+    }
 
-// mpic++ ./colorPalette.cpp -lalleg
-// mpirun ./a.out -np 2
+    // Disegno sul display
+    al_clear_to_color(al_map_rgb(0, 0, 0)); // Sfondo nero
+    for (int row = 0; row < 255; row++) {
+        for (int column = 0; column < 255; column++) {
+            al_draw_pixel(column, row, al_map_rgb(row, column, 128));
+        }
+    }
+
+    // Attendi un evento per chiudere la finestra
+    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+    al_flip_display(); // Aggiorna la finestra
+    bool running = true;
+
+    while (running) {
+        ALLEGRO_EVENT ev;
+        al_wait_for_event(event_queue, &ev);
+
+        if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+            running = false; // Esci dal ciclo quando viene premuto un tasto
+        }
+    }
+
+    // Pulizia e uscita
+    al_destroy_display(display);
+    al_destroy_event_queue(event_queue);
+
+    return 0;
+}

@@ -1,26 +1,30 @@
-// disegnare una stringa sul display con allegro
-
-/* g++ prova2.cpp -o prova2 -lallegro -lallegro_main -lallegro_primitives -lallegro_font -lallegro_ttf */
-
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
+#include <cstdio> // Aggiunto per includere <cstdio>
+
 int main()
 {
     al_init();
-	al_init_font_addon();
-	al_init_ttf_addon();
-	al_install_keyboard();
+    al_init_font_addon();
+    al_init_ttf_addon();
+    al_install_keyboard();
 
-	ALLEGRO_DISPLAY *display;
-	ALLEGRO_FONT * font = al_load_ttf_font("YARDSALE.ttf", 30, 0);
-	ALLEGRO_EVENT_QUEUE *queue;
-	ALLEGRO_EVENT event;
+    ALLEGRO_DISPLAY *display;
+
+    ALLEGRO_FONT *font = al_load_ttf_font("./YARDSALE.ttf", 30, 0);
+    if (!font) {
+        std::fprintf(stderr, "Impossibile caricare il font.\n"); // Usando std::fprintf
+        return 1; // Uscire con un errore
+    }
+
+    ALLEGRO_EVENT_QUEUE *queue;
+    ALLEGRO_EVENT event;
 
     al_init();	
     display = al_create_display(600, 400);
-	al_flip_display();
+    al_flip_display();
 
     queue = al_create_event_queue(); 
     al_register_event_source(queue, al_get_display_event_source(display));
@@ -34,7 +38,14 @@ int main()
             break;
         
         al_clear_to_color(al_map_rgb(143, 180, 240)); // colore sfondo
-        al_draw_text(font, al_map_rgb(213, 255, 179), 0, 0,ALLEGRO_ALIGN_LEFT, "Hello World"); //font, colore font coord x coord y, allineamento  , 'testo'    
+        al_draw_text(font, al_map_rgb(213, 255, 179), 0, 0, ALLEGRO_ALIGN_LEFT, "Hello World"); //font, colore font coord x coord y, allineamento  , 'testo'    
         al_flip_display();
     }
+
+    // Al termine del programma, rilascia le risorse
+    al_destroy_font(font);
+    al_destroy_event_queue(queue);
+    al_destroy_display(display);
+
+    return 0;
 }
