@@ -1,2 +1,0 @@
-ipconfig - ipv4 (WSL)
-export DISPLAY=172.24.112.1:0.0
