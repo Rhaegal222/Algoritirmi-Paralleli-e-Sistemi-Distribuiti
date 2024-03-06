@@ -1,4 +1,4 @@
-### Pthread
+## **Pthread**
 
 - **Create** (pthread_create): Crea un nuovo thread.
 
@@ -40,6 +40,8 @@
   pthread_cond_broadcast(pthread_cond_t *cond);
   ```
 
+<div class="page"/>
+
 - **Mutex** (pthread_mutex_init, pthread_mutex_destroy): Fornisce il locking mutualmente esclusivo per proteggere la sezione critica.
 
   ```c
@@ -53,7 +55,7 @@
   void sleep(int seconds);
   ```
 
-### MPI
+## **MPI**
 
 - **Mpi_Send e Mpi_Recv**: Permettono rispettivamente l'invio e la ricezione di messaggi tra processi.
 
@@ -81,6 +83,8 @@
     ```c
     MPI_Bcast(void *buf, int count, MPI_Datatype datatype, int root, MPI_Comm comm);
     ```
+
+<div class="page"/>
 
 - **Mpi_Barrier**: Sincronizza tutti i processi in un communicator, facendo attendere ciascuno finché tutti non arrivano a questo punto.
 
@@ -119,6 +123,8 @@
   ```c
   int MPI_Wait(MPI_Request *request, MPI_Status *status);
   ```
+
+<div class="page"/>
 
 - **MPI_Get_count**: Restituisce il numero di elementi ricevuti in una operazione MPI_Recv.
 
