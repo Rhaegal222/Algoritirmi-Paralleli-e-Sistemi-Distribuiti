@@ -47,26 +47,6 @@ Dove:
 - _f_ è la frazione del programma che può essere parallelizzata
 - _p_ è il numero di processori.
 
-## Tempo di esecuzione ottimizzato
-
-La formula suggerisce che il tempo di esecuzione ottimizzato _T<sub>o</sub>_ può essere ottenuto sottraendo il tempo seriale _T<sub>s</sub>_ dal tempo totale parallelo teorico, che è il prodotto di _p_ per _T<sub>p</sub>_. Questo concetto è importante nell'analisi delle prestazioni di algoritmi paralleli, in quanto permette di stimare l'efficienza del parallelismo riducendo il tempo non parallelizzabile.
-
-**Formula per il calcolo del tempo di esecuzione ottimizzato:**
-
-$$
-T_o = p \cdot T_p - T_s
-$$
-
-1. _T<sub>o</sub>_ = _T<sub>all</sub>_ - _T<sub>s</sub>_ (Tempo di esecuzione ottimizzato)
-2. _T<sub>all</sub>_ = p * _T<sub>p</sub>_ (Tempo di esecuzione totale teorico con p processori)
-
-Dove:
-
-- _T<sub>o</sub>_ è il tempo di esecuzione ottimizzato
-- _T<sub>p</sub>_ è il tempo di esecuzione del programma parallelo.
-- _T<sub>s</sub>_ è il tempo di esecuzione del programma seriale.
-- _p_ è il numero di processori.
-
 ## Overhead
 
 L'overhead è un valore che indica quanto un programma parallelo è meno efficiente rispetto a quello seriale.
@@ -74,19 +54,77 @@ L'overhead è un valore che indica quanto un programma parallelo è meno efficie
 Si calcola con la seguente formula:
 
 $$
-O = \frac{T_p - T_s}{T_s}
+T_o = \frac{T_p - T_s}{T_s}
 $$
 
 Dove:
 
-- _O_ è l'overhead
+- _T<sub>o</sub>_ è l'overhead
 - _T<sub>s</sub>_ è il tempo di esecuzione del programma seriale.
 - _T<sub>p</sub>_ è il tempo di esecuzione del programma parallelo.
 
-mantenere l'efficienza costante ad x, la relazione tra n e p è:
+Per mantenere l'efficienza costante ad x, la relazione tra n e p è:
 
 $$
 n = x \cdot p \cdot \log p
+$$
+
+Dove:
+
+- _n_ è il tempo di esecuzione del programma seriale.
+- _x_ è il tempo di esecuzione del programma parallelo.
+- _p_ è il numero di processori.
+
+### Esempio
+
+Sia 8 * _p_ * _ln_ _p_ l'overhead generato da un problema parallelo che gira su p processori e 2 * n il suo tempo seriale _T<sub>s</sub>_. Affinché l'efficienza venga mantenuta al 80% (cioè 0.8), trovare la relazione tra _n_ e _p_.
+
+Dati:
+
+- _T<sub>o</sub>_ = 8 * _p_ * _ln_ _p_ (overhead)
+- _T<sub>s</sub>_ = 2 * _n_ (tempo seriale)
+- _E_ = 0.8 (efficienza)
+
+Problema:
+
+- Scrivere la relazione tra _n_ e _p_ affinché l'efficienza venga mantenuta al 80% (cioè 0.8).
+
+Svolgimento:
+
+Partendo dall'equazione dell'efficienza che si basa sul tempo seriale (_T<sub>s</sub>_) e sull'overhead (_T<sub>o</sub>_), possiamo scrivere la relazione tra _n_ e _p_ come segue:
+
+$$
+0.8 = \frac{2n}{2n + 8p \cdot \ln p}
+$$
+
+1. Moltiplichiamo entrambi i membri per il denominatore per eliminare la frazione:
+
+    $$
+    0.8 \cdot (2n + 8p \cdot \ln p) = 2n
+    $$
+
+2. Espandiamo il membro sinistro:
+
+    $$
+    1.6n + 6.4p \cdot \ln p = 2n
+    $$
+
+3. Sottraiamo _1.6n_ da entrambi i membri:
+
+    $$
+    6.4p \cdot \ln p = 0.4n
+    $$
+
+4. Dividiamo entrambi i membri per _0.4n_:
+
+    $$
+    16p \cdot \ln p = n
+    $$
+
+Quindi, la relazione tra _n_ e _p_ affinché l'efficienza venga mantenuta al 80% (cioè 0.8) è:
+
+$$
+n = 16p \cdot \ln p
 $$
 
 ## Isoefficienza
